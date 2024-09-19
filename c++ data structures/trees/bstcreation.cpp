@@ -185,7 +185,7 @@ void bst::notleaf()
             y = y->lchild;
         }
         y = pop();
-        if ( y->rchild!=NULL && y->lchild!=NULL )
+        if ( y->rchild!=NULL || y->lchild!=NULL )
         cout << y->data << endl;
         y = y->rchild;
     } while (y != NULL || is_empty() != 1);
