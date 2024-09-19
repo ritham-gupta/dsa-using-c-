@@ -174,4 +174,21 @@ main()
     // b.search();
 }
 
+void bst::notleaf()
+{
+    struct node *y = root;
+    do
+    {
+        while (y != NULL)
+        {
+            push(y);
+            y = y->lchild;
+        }
+        y = pop();
+        if ( y->rchild!=NULL && y->lchild!=NULL )
+        cout << y->data << endl;
+        y = y->rchild;
+    } while (y != NULL || is_empty() != 1);
+}
+
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
