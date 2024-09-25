@@ -28,6 +28,10 @@ public:
     void inorder(void);
     void search(void);
     void preorder();
+    void postorder();
+    void leafnode();
+    void notleaf();
+    void countlr();
 };
 
 void bst::creation()
@@ -143,6 +147,40 @@ void bst::preorder()
     } while (y != NULL || is_empty() != 1);
 }
 
+void bst::postorder()
+{
+    struct node *y = root;
+    struct node *a;
+    do
+    {
+        while (y != NULL)
+        {
+            if (y->rchild != NULL)
+                push(y->rchild);
+            push(y);
+            y = y->lchild;
+        }
+        y = pop();
+        if (is_empty() == 1)
+        {
+            cout << y->data;
+            break;
+        }
+        if (y->rchild == top->i)
+        {
+            a = pop();
+            push(y);
+            y = a;
+        }
+        else
+        {
+            cout << y->data << endl;
+            y = NULL;
+        }
+
+    } while (y != NULL || is_empty() != 1);
+}
+
 void bst ::search()
 {
     struct node *y = root;
@@ -165,13 +203,25 @@ void bst ::search()
         cout << "\ndata not found";
 }
 
-main()
+void bst::leafnode()
 {
-    bst b;
-    b.creation();
-    //b.inorder();
-    b.preorder();
-    // b.search();
+    struct node *y = root;
+    do
+    {
+        while (y != NULL)
+        {
+            push(y);
+            y = y->lchild;
+        }
+
+        y = pop();
+
+        if (y->rchild == NULL && y->lchild == NULL)
+            cout << y->data << endl;
+
+        y = y->rchild;
+
+    } while (y != NULL || is_empty() != 1);
 }
 
 void bst::notleaf()
@@ -185,10 +235,68 @@ void bst::notleaf()
             y = y->lchild;
         }
         y = pop();
-        if ( y->rchild!=NULL || y->lchild!=NULL )
-        cout << y->data << endl;
+        if (y->rchild != NULL || y->lchild != NULL)
+            cout << y->data << endl;
         y = y->rchild;
     } while (y != NULL || is_empty() != 1);
 }
+
+void bst::countlr()
+{
+    struct node *y = root;
+    int acount = 0;
+    int bcount = 0;
+    do
+    {
+        while (y != NULL)
+        {
+            push(y);
+            y = y->lchild;
+        }
+        y = pop();
+        if(y == root)
+        {
+            break;
+        }
+        else
+        acount++;
+        y = y->rchild;
+    } while (y != NULL || is_empty() != 1);
+    cout<<"Nodes in left subtree = "<<acount<<endl;
+    y = root;
+   do
+    {
+        while (y != NULL)
+        {
+            push(y);
+            y = y->rchild;
+        }
+        y = pop();
+        if (y == root)
+        {
+            break;
+        }
+        bcount++;
+        y = y->lchild;
+    } while (y != NULL || is_empty() != 1);
+    cout<<"Nodes in right subtree = "<<bcount<<endl;  
+}
+
+
+main()
+{
+    bst b;
+    b.creation();
+    //b.inorder();
+    //b.preorder();
+    //b.postorder();
+    // b.search();
+    //b.leafnode();
+    //b.notleaf();
+    //b.countlr();
+    
+}
+
+
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
